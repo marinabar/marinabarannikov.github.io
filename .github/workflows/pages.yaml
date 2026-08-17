@@ -1,0 +1,82 @@
+name: Build and deploy
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Create directory for user-specific executable files
+        run: |
+          mkdir -p "${HOME}/.local/bin"
+
+      - name: Install latest Hugo
+        run: |
+          HUGO_VERSION=$(curl -sL https://api.github.com/repos/gohugoio/hugo/releases/latest \
+            | jq -r '.tag_name' | sed 's/^v//')
+          curl -sL "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_linux-amd64.tar.gz" \
+            | tar -C ${HOME}/.local/bin -xz hugo
+          echo "${HOME}/.local/bin" >> "${GITHUB_PATH}"
+
+      - name: Setup github pages
+        id: pages
+        uses: actions/configure-pages@v6
+
+      - name: Cache restore
+        id: cache-restore
+        uses: actions/cache/restore@v5
+        with:
+          path: ${{ runner.temp }}/hugo_cache
+          key: hugo-${{ github.run_id }}
+          restore-keys:
+            hugo-
+
+      - name: Build the site
+        run: |
+          hugo build \
+          --baseURL "${{ steps.pages.outputs.base_url }}/" \
+          --cacheDir "${{ runner.temp }}/hugo_cache"
+
+      - name: Cache save
+        id: cache-save
+        uses: actions/cache/save@v5
+        with:
+          path: ${{ runner.temp }}/hugo_cache
+          key: ${{ steps.cache-restore.outputs.cache-primary-key }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
