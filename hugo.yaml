@@ -48,15 +48,12 @@ languages:
     contentDir: content/en
     menu:
       main:
-        - name: "About"
-          weight: 1
-          url: "/#about"
         - name: "Papers"
-          weight: 2
+          weight: 1
           url: "/#papers"
         - name: "Projects"
-          weight: 3
+          weight: 2
           url: "/#projects"
         - name: "Curriculum Vitae"
-          weight: 4
+          weight: 3
           url: "/#cv"

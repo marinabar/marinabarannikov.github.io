@@ -4,6 +4,13 @@
   --max-page-width: 1111px;
 
   --profile-col-width: 220px;
+
+  /* Button / nav-pill color, overriding the theme's default grey. */
+  --color-button: #13304d;
+  --color-button-hover: #1f4a73;
+
+  /* Link hover/focus color. */
+  --color-link-hover: #709fcf;
 }
 
 html {
@@ -62,7 +69,7 @@ html {
   width: var(--profile-col-width);
   aspect-ratio: 1 / 1;
   border: 1px dashed var(--color-border, #999);
-  border-radius: var(--radius-m);
+  border-radius: 0;
   color: var(--color-text-meta, #777);
   font-family: var(--ff-alt);
   font-size: var(--fs-s);
@@ -115,7 +122,8 @@ html {
 
 .header {
   margin: 0;
-  border-radius: var(--radius-m);
+  padding-inline: 0;
+  border-radius: 0;
 }
 
 .nav-row {
@@ -124,6 +132,10 @@ html {
   gap: var(--spacing-m);
   flex-wrap: wrap;
   margin-inline-start: 0;
+}
+
+.main-menu {
+  padding-inline: 0;
 }
 
 .main-menu ul {
@@ -155,27 +167,29 @@ html {
   margin-block: var(--spacing-m) var(--spacing-xs);
 }
 
-#about {
-  padding-bottom: var(--spacing-xl);
-}
-
 /* Wide, thin banner placeholder used as a separator between sections.
-   Replace the background with a real image later. */
+   Replace the background with a real image later. Margin is symmetric so
+   the whitespace above and below the banner matches. */
 .section-separator {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 88px;
-  margin-block: var(--spacing-l) 0;
+  margin-block: var(--spacing-xl);
   border: 1px dashed var(--color-border, #999);
-  border-radius: var(--radius-m);
+  border-radius: 0;
   background-color: var(--color-grey-100, #f2f2f2);
   background-size: cover;
   background-position: center;
   color: var(--color-text-meta, #777);
   font-family: var(--ff-alt);
   font-size: var(--fs-s);
+}
+
+.section-separator--image {
+  border: none;
+  background-color: transparent;
 }
 
 /* ---- Compact paper cards (thumbnail + text) ---- */
@@ -241,6 +255,10 @@ html {
 .paper-image {
   max-width: 100%;
   border-radius: var(--radius-m);
+}
+
+.button {
+  border-radius: 0;
 }
 
 .cv-download {
