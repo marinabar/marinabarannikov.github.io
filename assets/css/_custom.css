@@ -2,8 +2,241 @@
   /* The max content and page width. */
   --max-content-width: 777px;
   --max-page-width: 1111px;
+
+  --profile-col-width: 220px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---- Page shell: profile column (left) + content column (right) ---- */
+
+.site-shell {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xl);
+  max-width: var(--max-page-width);
+  margin-inline: auto;
+  padding: var(--spacing-l) var(--gutters);
+
+  @media (max-width: 665px) {
+    flex-direction: column;
+    gap: var(--spacing-m);
+  }
+}
+
+.content-col {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ---- Profile column: photo placeholder + name + contacts ---- */
+
+.profile-col {
+  flex: 0 0 var(--profile-col-width);
+  width: var(--profile-col-width);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  position: sticky;
+  top: var(--spacing-l);
+
+  @media (max-width: 665px) {
+    position: static;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.profile-col__photo-link {
+  display: block;
+}
+
+.profile-col__photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--profile-col-width);
+  aspect-ratio: 1 / 1;
+  border: 1px dashed var(--color-border, #999);
+  border-radius: var(--radius-m);
+  color: var(--color-text-meta, #777);
+  font-family: var(--ff-alt);
+  font-size: var(--fs-s);
+  background-color: var(--color-grey-100, #f2f2f2);
+}
+
+.profile-col__name {
+  margin: 0;
+  font-family: var(--ff-headings);
+  font-weight: var(--fw-headings);
+  font-size: var(--fs-l);
+
+  a:link,
+  a:visited {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus {
+    text-decoration: underline;
+  }
+}
+
+.profile-col__contact {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxs);
+  font-family: var(--ff-alt);
+  font-size: var(--fs-s);
+
+  & > li {
+    display: block;
+
+    &::before {
+      content: none;
+      display: none;
+    }
+  }
+}
+
+/* ---- Header / nav row, level with the profile photo ---- */
+
+.header {
+  margin: 0;
+  border-radius: var(--radius-m);
+}
+
+.nav-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-m);
+  flex-wrap: wrap;
+  margin-inline-start: 0;
+}
+
+.main-menu ul {
+  gap: var(--spacing-m);
+}
+
+/* ---- One-page sections ---- */
+
+.onepage {
+  display: block;
+  padding-inline: 0;
+}
+
+.page-section {
+  scroll-margin-top: var(--spacing-l);
+  padding-block: var(--spacing-xl) 0;
+
+  &:first-of-type {
+    padding-top: var(--spacing-l);
+  }
+}
+
+.page-section__title {
+  margin-top: 0;
+}
+
+#about {
+  padding-bottom: var(--spacing-xl);
+}
+
+/* Wide, thin banner placeholder used as a separator between sections.
+   Replace the background with a real image later. */
+.section-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 88px;
+  margin-block: var(--spacing-l) 0;
+  border: 1px dashed var(--color-border, #999);
+  border-radius: var(--radius-m);
+  background-color: var(--color-grey-100, #f2f2f2);
+  background-size: cover;
+  background-position: center;
+  color: var(--color-text-meta, #777);
+  font-family: var(--ff-alt);
+  font-size: var(--fs-s);
+}
+
+/* ---- Compact paper cards (thumbnail + text) ---- */
+
+.paper-card {
+  display: flex;
+  gap: var(--spacing-s);
+  align-items: flex-start;
+  padding-block: var(--spacing-s);
+  border-top: 1px solid var(--color-border-light, #eee);
+  font-size: var(--fs-s);
+
+  &:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+}
+
+.paper-card__thumb-link {
+  flex: 0 0 auto;
+  display: block;
+}
+
+.paper-card__thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: var(--radius-s);
+}
+
+.paper-card__thumb--placeholder {
+  border: 1px dashed var(--color-border, #999);
+  background-color: var(--color-grey-100, #f2f2f2);
+  color: var(--color-text-meta, #777);
+  font-family: var(--ff-alt);
+  font-size: var(--fs-xs);
+}
+
+.paper-card__body {
+  min-width: 0;
+}
+
+.paper-card__title {
+  margin: 0 0 var(--spacing-xxs);
+  font-size: var(--fs-m);
+  line-height: 1.3;
+}
+
+.paper-card__meta {
+  margin: 0;
+  color: var(--color-text-meta);
+  font-size: var(--fs-xs);
+}
+
+.paper-card__excerpt {
+  margin: var(--spacing-xxs) 0 0;
+  font-size: var(--fs-xs);
+}
+
+.paper-image {
+  max-width: 100%;
+  border-radius: var(--radius-m);
+}
+
+.cv-download {
+  margin-top: var(--spacing-xs);
+}
 
 .header__logo {
   @container style(--theme: dark) {

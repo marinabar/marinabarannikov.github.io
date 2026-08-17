@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="nojs" lang="{{ site.Language.Locale | default site.Language.Name }}" dir="{{ site.Language.Direction | default "ltr" }}"{{ with $.Param "colorScheme" }} data-theme="{{ . }}"{{ end }}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>{{ block "title" . }}{{ .Title }} – {{ site.Title }}{{ end }}</title>
+{{ partial "head/meta.html" . }}
+{{ partialCached "head/favicons.html" . }}
+{{ partialCached "head/styles.html" . }}
+{{ partial "head/meta-json-ld.html" . }}
+{{ partial "head/scripts.html" . }}
+{{ partial "head/math.html" . }}
+{{ partialCached "head/tracking.html" . }}
+{{ partial "head/extra.html" . }}
+{{ block "head" . }}{{ end }}
+</head>
+
+<body class="{{ if .IsPage }}single-page{{ else }}list-page{{ end }}{{ if .IsHome }} front{{ end }}{{ with .Section }} section-page--{{ . | urlize }}{{ end }}{{ with $.Param "bodyclass" }} {{ . }}{{ end }}">
+<div class="page">
+<div class="site-shell">
+
+<aside class="profile-col">
+<a href="{{ site.Home.RelPermalink }}" title="Home" rel="home" class="profile-col__photo-link">
+<span class="profile-col__photo" role="img" aria-label="Your photo">Photo</span>
+</a>
+<p class="profile-col__name"><a href="{{ site.Home.RelPermalink }}" rel="home">{{ site.Params.author.name | default site.Title }}</a></p>
+<ul class="profile-col__contact">
+<li><a href="mailto:{{ site.Params.contact }}">Email</a></li>
+<li><a href="https://scholar.google.com/">Google Scholar</a></li>
+<li><a href="https://github.com/">GitHub</a></li>
+<li><a href="https://www.linkedin.com/">LinkedIn</a></li>
+</ul>
+</aside>
+
+<div class="content-col">
+
+<header class="header layout__header">
+<div class="nav-row header__region">
+{{ partial "menu.html" . -}}
+{{ if hugo.IsMultilingual }}{{ partial "language-selector.html" . }}{{ end -}}
+</div>
+</header>
+
+{{ if $.Param "mobilemenu" }}{{ partial "mobilemenu.html" . }}{{ end -}}
+
+{{ block "main" . }}{{ end }}
+
+<footer class="footer layout__footer mt--l">
+{{ partial "footer.html" . }}
+</footer>
+
+</div>
+
+</div>
+
+{{ if $.Param "cookieconsent" }}{{ partialCached "cookieconsent.html" . }}{{ end -}}
+</div>
+</body>
+</html>
