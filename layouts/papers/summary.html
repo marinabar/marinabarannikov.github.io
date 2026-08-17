@@ -5,7 +5,7 @@
 {{ with $.Param "image" -}}
 <img class="paper-card__thumb" src="{{ . | relURL }}" alt="" loading="lazy">
 {{ else -}}
-<span class="paper-card__thumb paper-card__thumb--placeholder">PDF</span>
+<span class="paper-card__thumb paper-card__thumb--placeholder">arXiv</span>
 {{ end -}}
 </a>
 <div class="paper-card__body">
@@ -16,7 +16,6 @@
 {{ with $.Param "venue" -}}
 <p class="paper-card__meta paper-card__meta--venue">{{ . -}}
 {{ with $.Param "links.arxiv" }} — <a href="{{ . }}" target="_blank" rel="noopener">arXiv</a>{{ end -}}
-{{ with $.Param "links.pdf" }} · <a href="{{ . }}" target="_blank" rel="noopener">PDF</a>{{ end -}}
 </p>
 {{ end -}}
 <p class="paper-card__excerpt">{{ .Summary | plainify | strings.Truncate 160 }}</p>

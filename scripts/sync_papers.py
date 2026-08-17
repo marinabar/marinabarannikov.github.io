@@ -13,6 +13,8 @@ Stdlib only, except PyYAML for the small config file.
 
 import os
 import re
+import shutil
+import subprocess
 import sys
 import tempfile
 import urllib.request
@@ -24,6 +26,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 PAPERS_DIR = ROOT / "content" / "en" / "papers"
+THUMBS_DIR = ROOT / "static" / "papers"
 CONFIG_PATH = ROOT / "data" / "papers_feed.yaml"
 
 ATOM_NS = {"atom": "http://www.w3.org/2005/Atom"}
@@ -114,13 +117,75 @@ def parse_date(published: str) -> str:
         return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S+00:00")
 
 
+def make_thumbnail(pdf_url: str, slug: str) -> str | None:
+    """Render page 1 of the paper's PDF as a thumbnail image.
+
+    arXiv doesn't expose a per-paper preview image via any API, and reliably
+    extracting the paper's "first figure" would mean parsing the LaTeX
+    source, which breaks on a large fraction of papers (TikZ-only figures,
+    missing source uploads, unusual \\includegraphics patterns). Rendering
+    the PDF's first page is the robust fallback that works for every paper.
+    Requires poppler-utils (`pdftoppm`); skipped silently if unavailable.
+    """
+    if not shutil.which("pdftoppm"):
+        print("pdftoppm not found, skipping thumbnail")
+        return None
+
+    THUMBS_DIR.mkdir(parents=True, exist_ok=True)
+    out_path = THUMBS_DIR / f"{slug}.png"
+
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_pdf = Path(tmp) / "paper.pdf"
+        try:
+            req = urllib.request.Request(
+                pdf_url,
+                headers={"User-Agent": "marinabarannikov.github.io paper sync (contact via GitHub)"},
+            )
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                tmp_pdf.write_bytes(resp.read())
+        except Exception as exc:  # noqa: BLE001
+            print(f"Could not download PDF for thumbnail ({pdf_url}): {exc}")
+            return None
+
+        tmp_out_prefix = Path(tmp) / "thumb"
+        try:
+            subprocess.run(
+                [
+                    "pdftoppm",
+                    "-png",
+                    "-f", "1",
+                    "-l", "1",
+                    "-singlefile",
+                    "-scale-to-x", "300",
+                    "-scale-to-y", "-1",
+                    str(tmp_pdf),
+                    str(tmp_out_prefix),
+                ],
+                check=True,
+                timeout=60,
+            )
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
+            print(f"pdftoppm failed for {pdf_url}: {exc}")
+            return None
+
+        rendered = tmp_out_prefix.with_suffix(".png")
+        if not rendered.exists():
+            return None
+        shutil.copy(rendered, out_path)
+
+    return f"papers/{slug}.png"
+
+
 def write_paper(entry: dict) -> Path:
     slug = slugify(entry["title"])
     path = PAPERS_DIR / f"{slug}.md"
     suffix = 2
     while path.exists():
-        path = PAPERS_DIR / f"{slug}-{suffix}.md"
+        slug = f"{slugify(entry['title'])}-{suffix}"
+        path = PAPERS_DIR / f"{slug}.md"
         suffix += 1
+
+    image = make_thumbnail(entry["arxiv_pdf"], slug) or ""
 
     front_matter = f"""---
 title: "{yaml_escape(entry['title'])}"
@@ -135,7 +200,7 @@ params:
   links:
     arxiv: "{entry['arxiv_abs']}"
     pdf: "{entry['arxiv_pdf']}"
-  image: ""
+  image: "{image}"
 
 ---
 
