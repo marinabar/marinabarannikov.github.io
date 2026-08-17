@@ -11,7 +11,8 @@
 <div class="paper-card__body">
 <h3 class="paper-card__title"><a href="{{ $paperURL }}" target="_blank" rel="noopener">{{ .Title }}</a></h3>
 {{ with $.Param "authors" -}}
-<p class="paper-card__meta">{{ . }}</p>
+{{ $me := site.Params.author.name -}}
+<p class="paper-card__meta">{{ replace . $me (printf "<strong>%s</strong>" $me) | safeHTML }}</p>
 {{ end -}}
 {{ with $.Param "venue" -}}
 <p class="paper-card__meta paper-card__meta--venue">{{ . -}}
