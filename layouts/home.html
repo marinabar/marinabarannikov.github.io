@@ -8,7 +8,12 @@
 {{ .Content }}
 </section>
 
+{{ $banner := "banner.jpg" -}}
+{{ if fileExists (path.Join "static" $banner) -}}
+<div class="section-separator section-separator--image" style="background-image: url('{{ $banner | relURL }}')" role="img" aria-label="Banner"></div>
+{{ else -}}
 <div class="section-separator" role="img" aria-label="Banner image placeholder"><span>Add banner image</span></div>
+{{ end -}}
 
 <section id="papers" class="page-section">
 <h2 class="page-section__title">Papers</h2>
@@ -21,10 +26,13 @@
 <h2 class="page-section__title">Projects</h2>
 
 <h3 class="page-subsection__title">Unaite</h3>
-<p><em>(Add a description of Unaite here.)</em></p>
+<p><a href="https://www.unaite.fr/" target="_blank" rel="noopener">Unaite</a> is a federation of AI student associations from eight French institutions, among them École Polytechnique, HEC Paris, and Dauphine-PSL. My role is Head of Research. I launched and am in charge of the Unaite Paper Club, a seminar series where students meet scientists from Meta, Hugging Face, and other partner labs to discuss recent papers. The federation also organizes hackathons and conferences.</p>
 
 <h3 class="page-subsection__title">Hackathons</h3>
-<p><em>(Add a description of your hackathon projects here.)</em></p>
+<ul>
+<li><strong>[06.26] EuroTech Hong Kong Federation</strong> — 1st prize, AI &amp; Robotics. Our team's project was : Real2Sim and digital twin creation for digitalized port and supply chain environments.</li>
+<li><strong>[05.25] Human-AI Interaction Hackathon, AGI House, San Francisco</strong>,  — 1st place. Attended after an invitation to Y Combinator's AI Startup School.</li>
+</ul>
 </section>
 
 <section id="cv" class="page-section">
