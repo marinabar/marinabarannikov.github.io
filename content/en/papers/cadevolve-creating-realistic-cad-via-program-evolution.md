@@ -6,7 +6,7 @@ build:
   list: true
 params:
   authors: "Maksim Elistratov, Marina Barannikov, Gregory Ivanov, Valentin Khrulkov, Anton Konushin, Andrey Kuznetsov, Dmitrii Zhemchuzhnikov"
-  venue: "arXiv preprint"
+  venue: "Findings of the 2026 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
   arxiv_id: "2602.16317"
   links:
     arxiv: "https://arxiv.org/abs/2602.16317"
