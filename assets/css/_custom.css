@@ -247,6 +247,12 @@ html {
   font-size: var(--fs-xs);
 }
 
+
+.paper-card__meta--venue {
+  font-size: var(--fs-s);
+  font-style: italic;
+}
+
 .paper-card__excerpt {
   margin: var(--spacing-xxs) 0 0;
   font-size: var(--fs-xs);
