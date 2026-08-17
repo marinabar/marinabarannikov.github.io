@@ -54,6 +54,9 @@ languages:
         - name: "Papers"
           weight: 2
           url: "/#papers"
-        - name: "Curriculum Vitae"
+        - name: "Projects"
           weight: 3
+          url: "/#projects"
+        - name: "Curriculum Vitae"
+          weight: 4
           url: "/#cv"

@@ -4,8 +4,4 @@ date: 2026-01-01T00:00:00+00:00
 
 ---
 
-I am an ML researcher working on [your research area — e.g. representation learning, reinforcement learning, generative models]. My work focuses on [one or two sentences describing your research interests and what problems you're excited about].
-
-Previously, I [brief background — degree, lab, prior role]. I'm currently [current affiliation / status].
-
-*(Replace this placeholder paragraph with your own bio.)*
+I am a first year PhD student at the [MMLab](https://www.mmlab-ntu.com/) at [NTU](https://www.ntu.edu.sg/), supervised by [Prof. (Cavan) Chen Change Loy](https://www.mmlab-ntu.com/person/ccloy/). I am interested on the broad intersection of Embodied AI, World Models, and Reasoning. Previously I obtained my Bachelor degree in mathematics at [Université Dauphine - PSL](https://dauphine.psl.eu/) in Paris. I have also spend some great time as a summer intern at Hugging Face in the [LeRobot](https://github.com/huggingface/lerobot) team.

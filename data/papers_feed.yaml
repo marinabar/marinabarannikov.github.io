@@ -5,7 +5,7 @@
 # arXiv author-search feed, which works well for this purpose. Build your own
 # at https://arxiv.org/a/YOUR_ARXIV_ID or via the arXiv API export query
 # below, replacing the search term with your name or arXiv author id.
-feed_url: "https://export.arxiv.org/api/query?search_query=au:Barannikov_M&sortBy=submittedDate&sortOrder=descending&max_results=20"
+feed_url: "https://export.arxiv.org/api/query?search_query=au:Barannikov_Marina&sortBy=submittedDate&sortOrder=descending&max_results=20"
 
 # Maximum number of new entries to import per run, to keep PRs/commits small.
 max_new_entries: 5

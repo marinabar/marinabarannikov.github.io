@@ -107,6 +107,10 @@ html {
   }
 }
 
+.profile-col__location {
+  color: var(--color-text-meta, #777);
+}
+
 /* ---- Header / nav row, level with the profile photo ---- */
 
 .header {
@@ -144,6 +148,11 @@ html {
 
 .page-section__title {
   margin-top: 0;
+}
+
+.page-subsection__title {
+  font-size: var(--fs-l);
+  margin-block: var(--spacing-m) var(--spacing-xs);
 }
 
 #about {
