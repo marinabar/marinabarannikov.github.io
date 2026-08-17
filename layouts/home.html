@@ -1,0 +1,26 @@
+{{ define "title" }}{{ site.Title }}{{ end }}
+
+{{ define "main" -}}
+<main class="main layout__main onepage">
+
+<section id="about" class="page-section">
+<h2 class="page-section__title">About</h2>
+{{ .Content }}
+</section>
+
+<div class="section-separator" role="img" aria-label="Banner image placeholder"><span>Add banner image</span></div>
+
+<section id="papers" class="page-section">
+<h2 class="page-section__title">Papers</h2>
+{{ range where site.RegularPages "Section" "papers" -}}
+{{ .Render "summary" }}
+{{ end -}}
+</section>
+
+<section id="cv" class="page-section">
+<h2 class="page-section__title">Curriculum Vitae</h2>
+<a class="button cv-download" href="{{ "cv.pdf" | relURL }}" target="_blank" rel="noopener">Download CV (PDF)</a>
+</section>
+
+</main>
+{{ end -}}

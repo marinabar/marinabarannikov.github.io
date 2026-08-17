@@ -1,1 +1,5 @@
 public/
+resources/_gen/
+_vendor/
+.hugo_build.lock
+

@@ -1,0 +1,24 @@
+{{ $paperURL := $.Param "links.arxiv" -}}
+{{ if not $paperURL }}{{ $paperURL = $.Param "links.pdf" }}{{ end -}}
+<article class="paper-card">
+<a class="paper-card__thumb-link" href="{{ $paperURL }}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+{{ with $.Param "image" -}}
+<img class="paper-card__thumb" src="{{ . | relURL }}" alt="" loading="lazy">
+{{ else -}}
+<span class="paper-card__thumb paper-card__thumb--placeholder">PDF</span>
+{{ end -}}
+</a>
+<div class="paper-card__body">
+<h3 class="paper-card__title"><a href="{{ $paperURL }}" target="_blank" rel="noopener">{{ .Title }}</a></h3>
+{{ with $.Param "authors" -}}
+<p class="paper-card__meta">{{ . }}</p>
+{{ end -}}
+{{ with $.Param "venue" -}}
+<p class="paper-card__meta paper-card__meta--venue">{{ . -}}
+{{ with $.Param "links.arxiv" }} — <a href="{{ . }}" target="_blank" rel="noopener">arXiv</a>{{ end -}}
+{{ with $.Param "links.pdf" }} · <a href="{{ . }}" target="_blank" rel="noopener">PDF</a>{{ end -}}
+</p>
+{{ end -}}
+<p class="paper-card__excerpt">{{ .Summary | plainify | strings.Truncate 160 }}</p>
+</div>
+</article>
