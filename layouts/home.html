@@ -8,7 +8,7 @@
 {{ .Content }}
 </section>
 
-{{ $banner := "banner.jpg" -}}
+{{ $banner := "banner1.jpg" -}}
 {{ if fileExists (path.Join "static" $banner) -}}
 <div class="section-separator section-separator--image" style="background-image: url('{{ $banner | relURL }}')" role="img" aria-label="Banner"></div>
 {{ else -}}
