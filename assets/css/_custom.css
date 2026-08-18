@@ -239,6 +239,10 @@ html {
   margin: 0 0 var(--spacing-xxs);
   font-size: var(--fs-m);
   line-height: 1.3;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .paper-card__meta {
@@ -251,6 +255,19 @@ html {
 .paper-card__meta--venue {
   font-size: var(--fs-s);
   font-style: italic;
+}
+
+.paper-card__meta--authors {
+  font-size: 0.7rem;
+}
+
+.paper-card__meta--venue {
+  font-size: var(--fs-s);
+  font-style: italic;
+}
+
+.paper-card__meta--link {
+  margin-top: var(--spacing-xxs);
 }
 
 .paper-card__excerpt {
@@ -269,6 +286,12 @@ html {
 
 .cv-download {
   margin-top: var(--spacing-xs);
+}
+
+.cv-updated {
+  margin-inline-start: var(--spacing-s);
+  color: var(--color-text-meta, #777);
+  font-size: var(--fs-xs);
 }
 
 .header__logo {
