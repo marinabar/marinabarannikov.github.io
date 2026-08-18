@@ -31,7 +31,7 @@ params:
     name: "Marina Barannikov"
     url: "https://marinabarannikov.github.io/"
   contact: "you@example.com"
-  description: "Marina Barannikov — ML researcher. About, papers, and CV."
+  description: "Marina Barannikov — ML researcher. About, publications, and CV."
   dateformat: "2 January, 2006"
   feedlinks: true
   mainSections:
@@ -48,9 +48,9 @@ languages:
     contentDir: content/en
     menu:
       main:
-        - name: "Papers"
+        - name: "Publications"
           weight: 1
-          url: "/#papers"
+          url: "/#publications"
         - name: "Projects"
           weight: 2
           url: "/#projects"
