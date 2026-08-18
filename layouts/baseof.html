@@ -20,9 +20,12 @@
 <div class="site-shell">
 
 <aside class="profile-col">
+{{/* Photo hidden for now — flip this to true once a real photo is added. */}}
+{{ if false -}}
 <a href="{{ site.Home.RelPermalink }}" title="Home" rel="home" class="profile-col__photo-link">
 <span class="profile-col__photo" role="img" aria-label="Your photo">Photo</span>
 </a>
+{{ end -}}
 <p class="profile-col__name"><a href="{{ site.Home.RelPermalink }}" rel="home">{{ site.Params.author.name | default site.Title }}</a></p>
 <ul class="profile-col__contact">
 <li class="profile-col__location"><span aria-hidden="true">🌐︎</span> Singapore</li>

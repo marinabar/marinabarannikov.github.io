@@ -15,8 +15,8 @@
 <div class="section-separator" role="img" aria-label="Banner image placeholder"><span>Add banner image</span></div>
 {{ end -}}
 
-<section id="papers" class="page-section">
-<h2 class="page-section__title">Papers</h2>
+<section id="publications" class="page-section">
+<h2 class="page-section__title">Publications</h2>
 {{ range where site.RegularPages "Section" "papers" -}}
 {{ .Render "summary" }}
 {{ end -}}
