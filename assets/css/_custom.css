@@ -4,6 +4,7 @@
   --max-page-width: 1111px;
 
   --profile-col-width: 220px;
+  --profile-col-shift: 60px;
 
   /* Button / nav-pill color, overriding the theme's default grey. */
   --color-button: #13304d;
@@ -17,15 +18,18 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ---- Page shell: profile column (left) + content column (right) ---- */
+/* ---- Page shell: a left column (name / profile) + right column (nav / content) ---- */
 
 .site-shell {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-xl);
   max-width: var(--max-page-width);
   margin-inline: auto;
   padding: var(--spacing-l) var(--gutters);
+}
+
+.top-row,
+.body-row {
+  display: flex;
+  gap: var(--spacing-xl);
 
   @media (max-width: 665px) {
     flex-direction: column;
@@ -33,15 +37,60 @@ html {
   }
 }
 
+.top-row {
+  align-items: center;
+  margin-bottom: var(--spacing-l);
+
+  @media (max-width: 665px) {
+    align-items: flex-start;
+  }
+}
+
+.body-row {
+  /* stretch (the default) so .profile-col-wrap is as tall as the row,
+     giving its sticky child room to stay stuck while scrolling */
+  align-items: stretch;
+}
+
 .content-col {
   flex: 1 1 auto;
   min-width: 0;
 }
 
-/* ---- Profile column: photo placeholder + name + contacts ---- */
+.header {
+  flex: 1 1 auto;
+}
+
+/* Shift the left column (name above, photo/contacts below) further toward
+   the page edge, independent of where the nav/content column sits. */
+.profile-col__name {
+  flex: 0 0 var(--profile-col-width);
+  min-width: 0;
+  position: relative;
+  left: calc(-1 * var(--profile-col-shift, 0px));
+
+  @media (max-width: 665px) {
+    flex: 0 0 auto;
+    min-width: auto;
+    left: 0;
+  }
+}
+
+/* ---- Profile column: photo placeholder + contacts ---- */
+
+.profile-col-wrap {
+  flex: 0 0 var(--profile-col-width);
+  position: relative;
+  left: calc(-1 * var(--profile-col-shift, 0px));
+
+  @media (max-width: 665px) {
+    flex: 0 0 auto;
+    width: 100%;
+    left: 0;
+  }
+}
 
 .profile-col {
-  flex: 0 0 var(--profile-col-width);
   width: var(--profile-col-width);
   display: flex;
   flex-direction: column;
@@ -80,7 +129,8 @@ html {
   margin: 0;
   font-family: var(--ff-headings);
   font-weight: var(--fw-headings);
-  font-size: var(--fs-l);
+  font-size: 1.7rem;
+  white-space: nowrap;
 
   a:link,
   a:visited {
@@ -90,7 +140,8 @@ html {
 
   a:hover,
   a:focus {
-    text-decoration: underline;
+    color: var(--color-link-hover);
+    text-decoration: none;
   }
 }
 
@@ -115,7 +166,7 @@ html {
 }
 
 .profile-col__location {
-  color: var(--color-text-meta, #777);
+  color: color-mix(in srgb, var(--color-link-hover) 50%, transparent);
 }
 
 /* ---- Header / nav row, level with the profile photo ---- */
@@ -136,6 +187,11 @@ html {
 
 .main-menu {
   padding-inline: 0;
+}
+
+.main-menu a {
+  padding: 6px 14px;
+  font-size: var(--fs-m);
 }
 
 .main-menu ul {
@@ -160,6 +216,7 @@ html {
 
 .page-section__title {
   margin-top: 0;
+  font-size: 1.5rem;
 }
 
 .page-subsection__title {
@@ -198,13 +255,15 @@ html {
   display: flex;
   gap: var(--spacing-s);
   align-items: flex-start;
-  padding-block: var(--spacing-s);
-  border-top: 1px solid var(--color-border-light, #eee);
+  padding: var(--spacing-s);
+  margin-block-end: var(--spacing-s);
+  border: 1px solid color-mix(in srgb, var(--color-link-hover) 45%, transparent);
+  border-radius: 0;
+  background-color: color-mix(in srgb, var(--color-link-hover) 15%, transparent);
   font-size: var(--fs-s);
 
-  &:first-of-type {
-    border-top: none;
-    padding-top: 0;
+  &:last-child {
+    margin-block-end: 0;
   }
 }
 

@@ -19,6 +19,19 @@
 <div class="page">
 <div class="site-shell">
 
+<div class="top-row">
+<p class="profile-col__name"><a href="{{ site.Home.RelPermalink }}" rel="home">{{ site.Params.author.name | default site.Title }}</a></p>
+<header class="header layout__header">
+<div class="nav-row header__region">
+{{ partial "menu.html" . -}}
+{{ if hugo.IsMultilingual }}{{ partial "language-selector.html" . }}{{ end -}}
+</div>
+</header>
+</div>
+
+<div class="body-row">
+
+<div class="profile-col-wrap">
 <aside class="profile-col">
 {{/* Photo hidden for now — flip this to true once a real photo is added. */}}
 {{ if false -}}
@@ -26,7 +39,6 @@
 <span class="profile-col__photo" role="img" aria-label="Your photo">Photo</span>
 </a>
 {{ end -}}
-<p class="profile-col__name"><a href="{{ site.Home.RelPermalink }}" rel="home">{{ site.Params.author.name | default site.Title }}</a></p>
 <ul class="profile-col__contact">
 <li class="profile-col__location"><span aria-hidden="true">🌐︎</span> Singapore</li>
 <li>marinami001 [at] ntu.edu.sg</li>
@@ -35,15 +47,9 @@
 <li><a href="https://fr.linkedin.com/in/marina-barannikov-28a8a4195/en">LinkedIn</a></li>
 </ul>
 </aside>
+</div>
 
 <div class="content-col">
-
-<header class="header layout__header">
-<div class="nav-row header__region">
-{{ partial "menu.html" . -}}
-{{ if hugo.IsMultilingual }}{{ partial "language-selector.html" . }}{{ end -}}
-</div>
-</header>
 
 {{ if $.Param "mobilemenu" }}{{ partial "mobilemenu.html" . }}{{ end -}}
 
@@ -52,6 +58,8 @@
 <footer class="footer layout__footer mt--l">
 {{ partial "footer.html" . }}
 </footer>
+
+</div>
 
 </div>
 
