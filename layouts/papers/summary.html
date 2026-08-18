@@ -15,9 +15,10 @@
 <p class="paper-card__meta">{{ replace . $me (printf "<strong>%s</strong>" $me) | safeHTML }}</p>
 {{ end -}}
 {{ with $.Param "venue" -}}
-<p class="paper-card__meta paper-card__meta--venue">{{ . -}}
-{{ with $.Param "links.arxiv" }} — <a href="{{ . }}" target="_blank" rel="noopener">arXiv</a>{{ end -}}
-</p>
+<p class="paper-card__meta paper-card__meta--venue">{{ . }}</p>
+{{ end -}}
+{{ with $.Param "links.arxiv" -}}
+<p class="paper-card__meta paper-card__meta--link"><a href="{{ . }}" target="_blank" rel="noopener">link</a></p>
 {{ end -}}
 <p class="paper-card__excerpt">{{ .Summary | plainify | strings.Truncate 160 }}</p>
 </div>
